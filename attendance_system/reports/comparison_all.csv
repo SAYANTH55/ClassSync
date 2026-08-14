@@ -1,0 +1,6 @@
+method,rank1_pct,tar_at_far0_pct
+Eigenfaces (1991),26.1,8.7
+LBPH (2006),34.8,4.3
+Scratch-CNN (245 imgs),4.3,0.0
+MobileNetV2-TL (ImageNet),17.4,4.3
+ArcFace (deployed),100.0,100.0

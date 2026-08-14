@@ -1,0 +1,31 @@
+# Two pinned environments (both on the dev machine; see README "Environment").
+#
+# ---- ENV 1: face stack — E:\amlenvs\face311 (Python 3.11) ------------------
+# Used by: everything in src/ EXCEPT evaluate_deep.py
+insightface==1.0.1
+onnx==1.22.0
+onnxruntime==1.27.0
+numpy==2.4.6
+opencv-contrib-python==5.0.0.93     # NOTE: cv2.face was REMOVED in OpenCV 5;
+                                    # LBPH in evaluate_classical.py is our own
+                                    # numpy implementation for that reason
+pillow==12.3.0
+pillow-heif==1.4.0                  # HEIC support (phone enrollment images)
+matplotlib==3.11.1
+scikit-learn==1.9.0
+#
+# ---- ENV 2: training stack — miniconda base (Python 3.13) ------------------
+# Used by: evaluate_deep.py only (scratch CNN + MobileNetV2 baselines).
+# The two envs communicate only through data/cache/crops_rgb.npz.
+# tensorflow==2.21.0
+# numpy==2.2.6
+#
+# ---- legacy (phases 1-3 classical pipeline, ENV 2) -------------------------
+# opencv-contrib-python==4.13.0.92
+# pandas==2.3.3
+
+# ---- web backend (FastAPI auth + server) -----------------------------------
+fastapi
+uvicorn[standard]
+python-multipart
+itsdangerous==2.2.0

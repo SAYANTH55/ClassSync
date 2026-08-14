@@ -1,0 +1,44 @@
+# ---- personal data: face images must NEVER enter version control ----------
+data/
+reports/**/*.jpg
+reports/**/*.jpeg
+reports/**/*.png
+# report CSVs that carry real student names (aggregate CSVs without names
+# — comparison.csv, threshold_sweep.csv — remain tracked)
+reports/**/per_probe*.csv
+reports/dslr_check/report.csv
+reports/bias_audit/per_student.csv
+reports/attendance_summary.csv
+
+# ---- large / derived artifacts --------------------------------------------
+models/
+logs/
+*.h5
+*.keras
+
+# ---- python ----------------------------------------------------------------
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+reports/enroll_inspection/*.csv
+
+# name-bearing documentation (kept local, not published)
+docs/PROJECT_DOCUMENTATION.md
+docs/ClassSync_Project_Documentation.pdf
+# PDF renders still contain real classmate names (the sanitized .md versions
+# are published instead); regenerate from the sanitized markdown to publish.
+docs/ClassSync_Learn_My_Project.pdf
+docs/ClassSync_Project_Knowledge.pdf
+
+# environment (never commit real secrets)
+.env
+
+# ---- defensive: build output, dependencies, OS/editor files ----------------
+node_modules/
+webapp/frontend/dist/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
