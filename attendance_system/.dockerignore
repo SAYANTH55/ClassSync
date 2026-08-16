@@ -1,0 +1,14 @@
+.git
+.gitignore
+.env
+.env.example
+data/
+models/insightface/
+reports/
+docs/
+**/__pycache__/
+*.pyc
+.venv/
+webapp/frontend/node_modules/
+webapp/frontend/dist/
+*.md

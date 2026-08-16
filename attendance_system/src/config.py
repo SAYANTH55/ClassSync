@@ -19,9 +19,22 @@ student id by construction. Label/annotation files key on the bare filename
 and rely on this invariant.
 """
 
+import os
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+
+# Load <project>/.env (git-ignored) so local/deployment settings like
+# INSIGHTFACE_ROOT and the CLASSSYNC_* auth vars are picked up automatically,
+# without exporting them in every shell. Real environment variables still take
+# precedence (load_dotenv does not override already-set vars). Graceful no-op
+# if python-dotenv is not installed.
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv(PROJECT_ROOT / ".env")
+except ImportError:
+    pass
 
 # ---- data locations --------------------------------------------------------
 DATA_DIR = PROJECT_ROOT / "data"
@@ -111,7 +124,9 @@ MODELS_DIR = PROJECT_ROOT / "models"   # trained weights (git-ignored)
 # ---- pre-trained face stack (insightface / ArcFace) ------------------------
 # Model cache lives on E: (C: is space-constrained). buffalo_l bundles an
 # SCRFD detector (+5-pt landmarks) and the ArcFace r100 embedding (512-d).
-EMBED_MODEL_ROOT = Path("E:/amlenvs/insightface_models")
+EMBED_MODEL_ROOT = Path(
+    os.environ.get("INSIGHTFACE_ROOT", PROJECT_ROOT / "models" / "insightface")
+)
 EMBED_MODEL_NAME = "buffalo_l"
 EMBED_DIM = 512
 
