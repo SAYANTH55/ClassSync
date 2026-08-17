@@ -1,5 +1,5 @@
-import { useLocation } from "react-router-dom";
-import { Moon, Sun } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Home, Moon, Sun } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -14,6 +14,7 @@ const titles = {
 
 export default function Topbar() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const ref = useRef(null);
   const [dark, setDark] = useState(
     () => document.documentElement.dataset.theme !== "light"
@@ -43,11 +44,23 @@ export default function Topbar() {
 
   return (
     <header ref={ref} className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-(--color-line) bg-(--color-card)/55 px-6 backdrop-blur-xl">
-      <div>
-        <p className="text-[10.5px] font-medium uppercase tracking-[0.2em] text-(--color-accent)">ClassSync</p>
-        <h1 className="text-[16px] font-semibold tracking-tight">
-          {titles[pathname] ?? "ClassSync"}
-        </h1>
+      <div className="flex items-center gap-3">
+        {pathname !== "/" && (
+          <button
+            onClick={() => navigate("/")}
+            aria-label="Home"
+            title="Back to dashboard"
+            className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl border border-(--color-line) text-(--color-ink-2) transition-all duration-300 hover:border-(--color-accent)/50 hover:text-(--color-accent) hover:shadow-[0_0_18px_-4px_rgba(139,123,255,0.6)]"
+          >
+            <Home size={16} />
+          </button>
+        )}
+        <div>
+          <p className="text-[10.5px] font-medium uppercase tracking-[0.2em] text-(--color-accent)">ClassSync</p>
+          <h1 className="text-[16px] font-semibold tracking-tight">
+            {titles[pathname] ?? "ClassSync"}
+          </h1>
+        </div>
       </div>
       <div className="flex items-center gap-3">
         <div className="hidden text-right sm:block">
