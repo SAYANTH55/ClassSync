@@ -91,7 +91,9 @@ export default function Dashboard() {
 
   useGSAP(() => {
     if (!data || REDUCE) return;
-    gsap.from(".dash-in", { opacity: 0, y: 18, stagger: 0.07, duration: 0.5, ease: "power3.out" });
+    // no opacity here — a from-tween killed mid-flight by the 15s data poll
+    // must never leave dashboard sections stuck invisible.
+    gsap.from(".dash-in", { y: 18, stagger: 0.07, duration: 0.5, ease: "power3.out" });
 
     const xTo = gsap.quickTo(orb.current, "x", { duration: 0.9, ease: "power2.out" });
     const yTo = gsap.quickTo(orb.current, "y", { duration: 0.9, ease: "power2.out" });

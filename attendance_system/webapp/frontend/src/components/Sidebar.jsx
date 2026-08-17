@@ -26,8 +26,11 @@ export default function Sidebar() {
   }, []);
 
   useGSAP(() => {
-    gsap.from(ref.current, { x: -28, opacity: 0, duration: 0.6, ease: "power3.out" });
-    gsap.from(".nav-item", { x: -14, opacity: 0, stagger: 0.06, duration: 0.4, delay: 0.15, ease: "power2.out" });
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // NB: no opacity in these entrances — an async re-render (engine status)
+    // can kill a from-tween mid-flight and leave elements stuck invisible.
+    gsap.from(ref.current, { x: -28, duration: 0.6, ease: "power3.out" });
+    gsap.from(".nav-item", { x: -14, stagger: 0.06, duration: 0.4, delay: 0.15, ease: "power2.out" });
   }, { scope: ref });
 
   return (
